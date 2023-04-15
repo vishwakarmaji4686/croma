@@ -1,0 +1,44 @@
+<div class="main-content mt-3">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-11">
+                            <h3>All Blog</h3>
+                        </div>
+                        <div class="col-1 text text-right">
+                            <a href="/addBlog" class="btn btn-primary" >Add Blog </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 mt-4">
+                    <% for(let i = 0; i < blog i++){ 
+                        console,log("blog", blog) %>
+                    <div class="card " >
+                        <div class="card-header">
+                           <h3><%= blog[i].title; %></h3>
+                        </div>
+                        <div class="card-body" >
+
+                            <img src="" alt="" height="250px" width="300px">
+                            <h6>
+                               #
+                            </h6>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>Create By</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
