@@ -27,6 +27,18 @@ class BlogModel {
     }
     getBlogById(id){
         return new Promise(function (resolve, reject) {
+            let query = `SELECT * FROM blog WHERE userid='${id}'`
+            connection.query(query, function(error, result){
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(result)
+                }
+            })
+        }) 
+    }
+    getSingleBlogById(id){
+        return new Promise(function (resolve, reject) {
             let query = `SELECT * FROM blog WHERE id='${id}'`
             connection.query(query, function(error, result){
                 if(error){
@@ -61,7 +73,7 @@ class BlogModel {
                 if(error){
                     reject(error)
                 }else{
-                    resolve(result[0])
+                    resolve(result)
                 }
             })
         })   

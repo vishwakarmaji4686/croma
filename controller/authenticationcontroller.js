@@ -3,24 +3,29 @@ const authenticationModel = require("../Model/authenticationModel")
 class authenticationcontroller{
     constructor(){}
     login(req, res){
-        let page ={
-            title: "login",
-            pageName: "login",
-            status: "",
-            message: "",
-            isUserLogin: false,
+        try {
+            let page ={
+                title: "login",
+                pageName: "login",
+                status: "",
+                message: "",
+                isUserLogin: false,
+            }
+            if(req.session.isUserLogin){
+                page.isUserLogin = true;
+            }
+            if(req.session.status && req.session.message){
+                page.status = req.session.status;
+                page.message = req.session.message;
+                delete req.session.status, req.session.message;
+            }
+            res.render('user/template', page)
+        } catch (error) {
+            console.log("login page error", error)
         }
-        if(req.session.isUserLogin){
-            page.isUserLogin = true;
-        }
-        if(req.session.status && req.session.message){
-            page.status = req.session.status;
-            page.message = req.session.message;
-            delete req.session.status, req.session.message;
-        }
-        res.render('user/template', page)
     }
     async loginUser(req, res){
+    try {
         console.log("req.body", req.body)
         const email = req.body.email;
         const password = req.body.password;
@@ -41,9 +46,14 @@ class authenticationcontroller{
             req.session.message = "Wrong email ::::::::::"
             res.redirect("/login")
         }
-    }
+
+    } catch (error) {
+        console.log("login user error", error)
+    }   
+ }
 
     singUp(req, res){
+       try {
         let page ={
             title: "singUp",
             pageName: "singUp",
@@ -60,12 +70,16 @@ class authenticationcontroller{
             delete req.session.status, req.session.message
         };
         res.render('user/template', page)
+       } catch (error) {
+            console.log("singUp error" , error)
+       }
     }
     async singUpUser(req, res){
-        console.log("req.body",req.body)
+        try {
+            console.log("req.body",req.body)
         let user = joi.object({
             fullName: joi.string().required(),
-            email: joi.string().email(),
+            email: joi.string().required(),
             Contact: joi.number().required(),
             password: joi.string().required(),
         })
@@ -86,7 +100,10 @@ class authenticationcontroller{
             password: password,
         }
         await authenticationModel.insertUser(userD)
-        res.redirect('/login')
+        res.redirect("/login")
+        } catch (error) {
+            console.log("sing User error", error)
+        }
     }
 }
 module.exports = new authenticationcontroller();

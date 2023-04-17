@@ -5,7 +5,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-11">
-                            <h3>All Blog</h3>
+                            <h3>My Blog</h3>
                         </div>
                         <div class="col-1 text text-right">
                             <a href="/addBlog" class="btn btn-primary" >Add Blog </a>
@@ -14,24 +14,31 @@
 
                 </div>
                 <div class="col-12 mt-4">
-                    <% for(let i = 0; i < blog i++){ 
-                        console,log("blog", blog) %>
+                    <% console.log("nvkdnovnsdnvnk", blog) %>
+                    <% for(let i=0; i < blog.length; i++){ 
+                       let singleBlog = blog[i];
+                       const allImages = (singleBlog.image) ? singleBlog.image.split(",") : null;
+                       let productSingleImg = (allImages) ? allImages[0] : '';5 %>
                     <div class="card " >
                         <div class="card-header">
-                           <h3><%= blog[i].title; %></h3>
+                           <h3><%= singleBlog.title; %></h3>
                         </div>
                         <div class="card-body" >
 
-                            <img src="" alt="" height="250px" width="300px">
+                            <img src="/blogImage/<%= productSingleImg; %>" alt="" height="250px" width="300px">
+
                             <h6>
-                               #
+                               <%= singleBlog.description; %>
                             </h6>
                         </div>
                         <div class="card-footer">
                             <div class="row">
-                                <div class="col-6">
-                                    <span>Create By</span>
+                                <div class="col-10 ">
                                 </div>
+                                <span class="col-2" >
+                                    <a href="/editBlog?blogId=<%= blog[i].id %>" class="btn btn-primary" >Edit</a>
+                                    <a href="/deleteBlog?blogId=<%= blog[i].id %>" onclick="return  confirm('are you sure to delete BLog')" class="btn btn-danger">Delete</a>
+                                </span>
                                 
                             </div>
                         </div>
